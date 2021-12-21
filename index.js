@@ -54,7 +54,7 @@ app.post("/api/v1/points", (req, res, next) => {
 });
 
 // ------------------------------------- spend points -------------------------------------------
-app.put("/api/v1/points", (req, res, next) => {
+app.post("/api/v1/points/spend", (req, res, next) => {
   // check request for errors
   let deduction = req.query.points;
   if (!deduction) {
@@ -64,6 +64,9 @@ app.put("/api/v1/points", (req, res, next) => {
   }
   if (typeof parseInt(deduction) !== "number") {
     return next(new Error("Points were not a valid number"));
+  }
+  if (parseInt(deduction) <= 0) {
+    return next(new Error("Spend amount must be greater than 0"));
   }
   const total = calculateTotalPoints(database);
   if (deduction > total) {
