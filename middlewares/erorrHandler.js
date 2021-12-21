@@ -4,8 +4,7 @@
 const errorHandler = (err, req, res, next) => {
   //   let error = { ...err };
 
-  console.log(err.stack);
-  console.log(err);
+  console.log(err.stack.red.bold);
 
   res.json({
     success: false,
